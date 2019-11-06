@@ -9,6 +9,9 @@ import { CustomerService } from "../shared/customer.service";
 })
 export class CustomerListComponent implements OnInit {
   customerArray = [];
+  showDeletedMessage: boolean;
+  searchText: string = "";
+
   constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
@@ -24,4 +27,15 @@ export class CustomerListComponent implements OnInit {
 
   }
 
+  onDelete($key) {
+    if (confirm("Are you sure you want to delete this record?")) {
+      this.customerService.deleteCustomer($key);
+      this.showDeletedMessage = true;
+      setTimeout(() => this.showDeletedMessage = false, 3000)
+    }
+  }
+
+  filterCondition(customer) {
+    return customer.fullName.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
+  }
 }

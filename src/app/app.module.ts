@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +13,7 @@ import { environment } from '../environments/environment';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerService } from "./shared/customer.service";
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -18,14 +21,16 @@ import { CustomerService } from "./shared/customer.service";
   declarations: [
     AppComponent,
     CustomerComponent,
-    CustomerListComponent
+    CustomerListComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),// we called initializeApp function to provide connection details
-    AngularFireDatabaseModule // we will import the classes here too
+    AngularFireDatabaseModule, // we will import the classes here too
+    FormsModule
   ],
   providers: [CustomerService],
   bootstrap: [AppComponent]

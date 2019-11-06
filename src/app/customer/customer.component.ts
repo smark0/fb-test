@@ -20,15 +20,15 @@ export class CustomerComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.customerService.form.valid) {
-      if (this.customerService.form.get("$key").value == null) {
+      if (this.customerService.form.get('$key').value == null){
         this.customerService.insertCustomer(this.customerService.form.value);
-        this.showSuccessMessage = true;// we set the property to true
-        setTimeout(() => this.showSuccessMessage = false, 3000); // we used setTimeout here so after 3 second the showSuccessMessage value will be false
-        this.submitted = false;
-        this.customerService.form.reset();// the form will be empty after new record created
-      } else {
-        //update
-      }
+    } else {
+      this.customerService.updateCustomer(this.customerService.form.value);
+      this.showSuccessMessage = true;
+      setTimeout(() => this.showSuccessMessage = false, 3000);
+      this.submitted = false;
+      this.customerService.form.reset();
     }
   }
 }
+} 

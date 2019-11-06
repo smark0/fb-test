@@ -14,9 +14,11 @@ export class CustomerService {
   form = new FormGroup({
     $key: new FormControl(null),
     fullName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
+    address: new FormControl('', Validators.required),
+    zip: new FormControl('',[Validators.required, Validators.minLength(4)]), 
+    city: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.email, Validators.required]),
     mobile: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    location: new FormControl('')
   });
 
   getCustomers() {
@@ -27,9 +29,28 @@ export class CustomerService {
   insertCustomer(customer) {
     this.customerList.push({
       fullName: customer.fullName,
+      address: customer.address,
+      zip: customer.zip,
+      city: customer.city,
       email: customer.email,
-      mobile: customer.mobile,
-      location: customer.location
+      mobile: customer.mobile
     });
+  }
+  populateForm(customer) {
+    this.form.setValue(customer);
+  }
+  updateCustomer(customer) {
+    this.customerList.update(customer.$key, {
+      fullName: customer.fullName,
+      address: customer.address,
+      zip: customer.zip,
+      city: customer.city,
+      email: customer.email,
+      mobile: customer.mobile
+    });
+  }
+
+  deleteCustomer($key: string) {
+    this.customerList.remove($key);
   }
 }
